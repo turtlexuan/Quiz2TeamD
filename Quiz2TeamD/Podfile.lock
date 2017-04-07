@@ -1,0 +1,25 @@
+PODS:
+  - DKImagePickerController (3.5.1):
+    - DKImagePickerController/Camera (= 3.5.1)
+    - DKImagePickerController/ImageManager (= 3.5.1)
+  - DKImagePickerController/Camera (3.5.1)
+  - DKImagePickerController/ImageManager (3.5.1)
+  - DynamicColor (3.2.1)
+  - IQKeyboardManagerSwift (4.0.9)
+  - SkyFloatingLabelTextField (3.0.0)
+
+DEPENDENCIES:
+  - DKImagePickerController
+  - DynamicColor
+  - IQKeyboardManagerSwift
+  - SkyFloatingLabelTextField
+
+SPEC CHECKSUMS:
+  DKImagePickerController: 8db7e76a88a7a66a893ba30e935cc4c9bb7ed335
+  DynamicColor: 4786d650c69da6c3f2cbfe068348288ec4e5521f
+  IQKeyboardManagerSwift: 2eefe6c429b86aa08bfbc1b5c891164d754adf91
+  SkyFloatingLabelTextField: 35bc0c2653ad73c5fd8b7a34cfedf09c94367a1a
+
+PODFILE CHECKSUM: a40628f7f939edbfae626cbeb4446ea89612b12d
+
+COCOAPODS: 1.2.1.beta.1

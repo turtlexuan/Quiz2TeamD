@@ -13,6 +13,7 @@
 		2083AB771E97252A00AB0B5A /* Quiz2TeamD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2083AB751E97252900AB0B5A /* Quiz2TeamD.xcdatamodeld */; };
 		2083AB791E97252A00AB0B5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2083AB781E97252A00AB0B5A /* Assets.xcassets */; };
 		2083AB7C1E97252A00AB0B5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2083AB7A1E97252A00AB0B5A /* LaunchScreen.storyboard */; };
+		8F5D4887B91FFD51FD7B1C0D /* Pods_Quiz2TeamD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64303927B612C69A61908846 /* Pods_Quiz2TeamD.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,9 @@
 		2083AB781E97252A00AB0B5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2083AB7B1E97252A00AB0B5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2083AB7D1E97252A00AB0B5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3222BE0CDC6138133CFAF572 /* Pods-Quiz2TeamD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quiz2TeamD.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Quiz2TeamD/Pods-Quiz2TeamD.debug.xcconfig"; sourceTree = "<group>"; };
+		64303927B612C69A61908846 /* Pods_Quiz2TeamD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Quiz2TeamD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		79D53B59B40050D5FD821FA9 /* Pods-Quiz2TeamD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quiz2TeamD.release.xcconfig"; path = "Pods/Target Support Files/Pods-Quiz2TeamD/Pods-Quiz2TeamD.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F5D4887B91FFD51FD7B1C0D /* Pods_Quiz2TeamD.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +47,8 @@
 			children = (
 				2083AB6D1E97252900AB0B5A /* Quiz2TeamD */,
 				2083AB6C1E97252900AB0B5A /* Products */,
+				51E1D4424A355E32A29C2557 /* Pods */,
+				F270ADF942D172549F85CC00 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +74,23 @@
 			path = Quiz2TeamD;
 			sourceTree = "<group>";
 		};
+		51E1D4424A355E32A29C2557 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3222BE0CDC6138133CFAF572 /* Pods-Quiz2TeamD.debug.xcconfig */,
+				79D53B59B40050D5FD821FA9 /* Pods-Quiz2TeamD.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F270ADF942D172549F85CC00 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				64303927B612C69A61908846 /* Pods_Quiz2TeamD.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,10 +98,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2083AB801E97252A00AB0B5A /* Build configuration list for PBXNativeTarget "Quiz2TeamD" */;
 			buildPhases = (
+				B0FF4A517F60BB3B3169A74B /* [CP] Check Pods Manifest.lock */,
 				2083AB671E97252900AB0B5A /* Sources */,
 				2083AB681E97252900AB0B5A /* Frameworks */,
 				2083AB691E97252900AB0B5A /* Resources */,
 				2083AB831E972B2F00AB0B5A /* Run Swiftlint */,
+				C798CFAD8C4AA9488ECCB789 /* [CP] Embed Pods Frameworks */,
+				68A3F9AC53FD1399155B50C0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -150,6 +177,51 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		68A3F9AC53FD1399155B50C0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Quiz2TeamD/Pods-Quiz2TeamD-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0FF4A517F60BB3B3169A74B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C798CFAD8C4AA9488ECCB789 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Quiz2TeamD/Pods-Quiz2TeamD-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -283,6 +355,7 @@
 		};
 		2083AB811E97252A00AB0B5A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3222BE0CDC6138133CFAF572 /* Pods-Quiz2TeamD.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = U9WVFKNWBQ;
@@ -296,6 +369,7 @@
 		};
 		2083AB821E97252A00AB0B5A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79D53B59B40050D5FD821FA9 /* Pods-Quiz2TeamD.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = U9WVFKNWBQ;

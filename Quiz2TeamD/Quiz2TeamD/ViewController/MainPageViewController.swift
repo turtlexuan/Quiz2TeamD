@@ -33,6 +33,11 @@ class MainPageViewController: UIViewController {
     }
 
     @IBAction func newArticleAction(_ sender: Any) {
+
+        guard
+            let addArticleBoard = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
+            else { return }
+        self.navigationController?.pushViewController(addArticleBoard, animated: true)
     }
 }
 

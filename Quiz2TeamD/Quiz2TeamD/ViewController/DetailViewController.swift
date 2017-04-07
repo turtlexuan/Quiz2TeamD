@@ -45,25 +45,27 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func saveAction(_ sender: Any) {
+        
+        
     }
-    
+
     func showImagePickerAlertSheet() {
         let alertController = UIAlertController(title: "Choose Image From?", message: nil, preferredStyle: .actionSheet)
-        
+
         let libraryAction = UIAlertAction(title: "Choose from photo library", style: .default) { (_) in
-            
+
 //            let pickerController = UIImagePickerController()
 //            pickerController.allowsEditing = false
 //            pickerController.sourceType = .photoLibrary
 //            
 //            self.present(pickerController, animated: true, completion: nil)
-            
+
             let pickerController = DKImagePickerController()
             pickerController.assetType = .allPhotos
             pickerController.maxSelectableCount = 1
             pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
                 print("didSelectAssets")
-                
+
                 let asset = assets.first
                 asset?.fetchOriginalImage(true, completeBlock: { (imageData, _) in
                     guard let image = imageData else { return }
@@ -74,15 +76,15 @@ class DetailViewController: UIViewController {
             }
             self.present(pickerController, animated: true, completion: nil)
         }
-        
+
         let cameraAction = UIAlertAction(title: "Take a photo", style: .default) { (_) in
-            
+
             let pickerController = DKImagePickerController()
             pickerController.sourceType = .camera
-            
+
             pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
                 print("didSelectAssets")
-                
+
                 let asset = assets.first
                 asset?.fetchOriginalImage(true, completeBlock: { (imageData, _) in
                     guard let image = imageData else { return }
@@ -93,13 +95,13 @@ class DetailViewController: UIViewController {
             }
             self.present(pickerController, animated: true, completion: nil)
         }
-        
+
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
+
         alertController.addAction(libraryAction)
         alertController.addAction(cameraAction)
         alertController.addAction(cancelAction)
-        
+
         self.present(alertController, animated: true, completion: nil)
     }
 }
@@ -118,25 +120,24 @@ extension DetailViewController: UITableViewDataSource {
             let cell = self.tableView.dequeueReusableCell(withIdentifier: "DetailImageTableViewCell", for: indexPath) as! DetailImageTableViewCell
 
             cell.selectionStyle = .none
-            
+
 //            let tintedImage = self.image.withRenderingMode(.alwaysTemplate)
 //            cell.articleImageView.image = tintedImage
             cell.articleImageView.image = self.image
             cell.articleImageView.contentMode = .scaleAspectFill
             cell.articleImageView.clipsToBounds = true
-            
+
             if self.isImageSelected == true {
                 let leading = NSLayoutConstraint(item: cell.articleImageView, attribute: .leading, relatedBy: .equal, toItem: cell.articleImageView.superview, attribute: .leading, multiplier: 1, constant: 0)
                 let trailing = NSLayoutConstraint(item: cell.articleImageView, attribute: .trailing, relatedBy: .equal, toItem: cell.articleImageView.superview, attribute: .trailing, multiplier: 1, constant: 0)
                 let top = NSLayoutConstraint(item: cell.articleImageView, attribute: .top, relatedBy: .equal, toItem: cell.articleImageView.superview, attribute: .top, multiplier: 1, constant: 0)
                 let bottom = NSLayoutConstraint(item: cell.articleImageView, attribute: .bottom, relatedBy: .equal, toItem: cell.articleImageView.superview, attribute: .bottom, multiplier: 1, constant: 0)
-                
+
                 leading.isActive = true
                 trailing.isActive = true
                 top.isActive = true
                 bottom.isActive = true
             }
-            
 
             return cell
 
@@ -145,15 +146,15 @@ extension DetailViewController: UITableViewDataSource {
             let cell = self.tableView.dequeueReusableCell(withIdentifier: "TitleTableViewCell", for: indexPath) as! TitleTableViewCell
 
             cell.selectionStyle = .none
-            
+
             return cell
 
         case .content:
 
             let cell = self.tableView.dequeueReusableCell(withIdentifier: "TextTableViewCell", for: indexPath) as! TextTableViewCell
-            
+
             cell.selectionStyle = .none
-            
+
             cell.textField.delegate = self
 
             return cell
@@ -178,9 +179,9 @@ extension DetailViewController: UITableViewDelegate {
             return UITableViewAutomaticDimension
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         if self.component[indexPath.row] == .image {
             self.showImagePickerAlertSheet()
         }
@@ -189,7 +190,7 @@ extension DetailViewController: UITableViewDelegate {
 }
 
 extension DetailViewController: UITextViewDelegate {
-    
+
     func textViewDidChange(_ textView: UITextView) {
         let currentOffset = self.tableView.contentOffset
         UIView.setAnimationsEnabled(false)
@@ -213,5 +214,3 @@ extension DetailViewController: UITextViewDelegate {
 //    }
 //    
 //}
-
-

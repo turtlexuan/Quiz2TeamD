@@ -24,9 +24,11 @@ class DetailViewController: UIViewController {
     var image: UIImage = #imageLiteral(resourceName: "icon_photo")
     var height: CGFloat = 56
     var isImageSelected = false
+    var isAddAction = false
     var content = ""
     var articleTitle = ""
     var article = Article(title: "", content: "", image: #imageLiteral(resourceName: "icon_photo"))
+    var indexPath: IndexPath!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,8 +70,13 @@ class DetailViewController: UIViewController {
 
     @IBAction func saveAction(_ sender: Any) {
 
-        ArticleManager.shared.save(article: self.article)
+        if self.isAddAction == false {
+            ArticleManager.shared.update(self.indexPath, article: self.article)
+        } else {
+            ArticleManager.shared.save(article: self.article)
+        }
 
+        self.navigationController?.popToRootViewController(animated: true)
     }
 
     func showImagePickerAlertSheet() {

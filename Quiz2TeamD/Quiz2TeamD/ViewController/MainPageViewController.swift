@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class MainPageViewController: UIViewController {
 
@@ -15,6 +16,7 @@ class MainPageViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
     var article: [Article] = [Article(title: "Hello", content: "World", image: #imageLiteral(resourceName: "Enlight14.jpg"))]
+    var fetchResultController: NSFetchedResultsController<ArticleMO>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,7 @@ class MainPageViewController: UIViewController {
         // swiftlint:disable force_cast
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         detailVC.isImageSelected = false
+        detailVC.isAddAction = true
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }
@@ -76,9 +79,20 @@ extension MainPageViewController: UITableViewDataSource {
         //
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         detailVC.isImageSelected = true
+        detailVC.isAddAction = false
         detailVC.article = self.article[indexPath.row]
+        detailVC.indexPath = indexPath
         self.navigationController?.pushViewController(detailVC, animated: true)
 
     }
 
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.article.remove(at: indexPath.row)
+
+            ArticleManager.shared.deleteArticle(indexPath)
+
+        self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }

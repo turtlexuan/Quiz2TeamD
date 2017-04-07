@@ -60,4 +60,37 @@
 //        }
 //    }
 //
+//func update(_ indexPath: IndexPath, article: Article) {
+//    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+//    let context = appDelegate.persistentContainer.viewContext
+//    let articleRequest: NSFetchRequest<ArticleMO> = ArticleMO.fetchRequest()
+//    
+//    do {
+//        let articleData = try context.fetch(articleRequest)
+//        let theArticle = articleData[indexPath.row]
+//        guard let graphData = UIImagePNGRepresentation(article.graph) else { return }
+//        theArticle.graph = graphData as NSData
+//        theArticle.title = article.title
+//        theArticle.text = article.text
+//    } catch {
+//        print("Updating error")
+//    }
+//    appDelegate.saveContext()
+//}
+//func delete(_ indexPath: IndexPath) {
+//    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+//    let context = appDelegate.persistentContainer.viewContext
+//    let articleRequest: NSFetchRequest<ArticleMO> = ArticleMO.fetchRequest()
+//    
+//    do {
+//        let articleData = try context.fetch(articleRequest)
+//        let theArticle = articleData[indexPath.row]
+//        appDelegate.delete(theArticle)
+//        appDelegate.saveContext()
+//    } catch {
+//        print("Delete error")
+//    }
+//    
+//    
+//}
 //}

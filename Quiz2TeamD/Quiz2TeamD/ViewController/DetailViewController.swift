@@ -45,8 +45,7 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func saveAction(_ sender: Any) {
-        
-        
+        self.navigationController?.popViewController(animated: true)
     }
 
     func showImagePickerAlertSheet() {

@@ -1,4 +1,14 @@
 //
+<<<<<<< HEAD
+=======
+//  ArticleManager.swift
+//  Quiz2
+//
+//  Created by Chujay on 07/04/2017.
+//  Copyright © 2017 Chujay. All rights reserved.
+//
+
+>>>>>>> 8bbccc722766ee7f0a48ff03f1d89f24125a0229
 import UIKit
 import CoreData
 
@@ -18,10 +28,13 @@ class ArticleManager {
             else { return }
 
         articleData.title = article.title
+<<<<<<< HEAD
         articleData.content = article.content
         articleData.image = graphData
+=======
         articleData.text = article.content
         articleData.graph = graphData
+>>>>>>> 8bbccc722766ee7f0a48ff03f1d89f24125a0229
 
         appDelegate.saveContext()
     }

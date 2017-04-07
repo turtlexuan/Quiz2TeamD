@@ -9,7 +9,7 @@
 import Photos
 
 public extension CGSize {
-	
+
 	public func toPixel() -> CGSize {
 		let scale = UIScreen.main.scale
 		return CGSize(width: self.width * scale, height: self.height * scale)
@@ -23,54 +23,54 @@ open class DKAsset: NSObject {
 
 	/// Returns a UIImage that is appropriate for displaying full screen.
 	private var fullScreenImage: (image: UIImage?, info: [AnyHashable: Any]?)?
-	
+
 	/// When the asset was an image, it's false. Otherwise true.
 	open private(set) var isVideo: Bool = false
-	
+
 	/// play time duration(seconds) of a video.
 	open private(set) var duration: Double?
-	
+
 	open private(set) var originalAsset: PHAsset?
-    
+
     open var localIdentifier: String
-		
+
 	public init(originalAsset: PHAsset) {
         self.localIdentifier = originalAsset.localIdentifier
 		super.init()
-		
+
 		self.originalAsset = originalAsset
-		
+
 		let assetType = originalAsset.mediaType
 		if assetType == .video {
 			self.isVideo = true
 			self.duration = originalAsset.duration
 		}
 	}
-	
+
 	private var image: UIImage?
 	internal init(image: UIImage) {
         self.localIdentifier = String(image.hash)
 		super.init()
-        
+
 		self.image = image
 		self.fullScreenImage = (image, nil)
 	}
-	
+
 	override open func isEqual(_ object: Any?) -> Bool {
         if let another = object as? DKAsset {
             return self.localIdentifier == another.localIdentifier
         }
         return false
 	}
-	
+
 	public func fetchImageWithSize(_ size: CGSize, completeBlock: @escaping (_ image: UIImage?, _ info: [AnyHashable: Any]?) -> Void) {
 		self.fetchImageWithSize(size, options: nil, completeBlock: completeBlock)
 	}
-	
+
 	public func fetchImageWithSize(_ size: CGSize, options: PHImageRequestOptions?, completeBlock: @escaping (_ image: UIImage?, _ info: [AnyHashable: Any]?) -> Void) {
 		self.fetchImageWithSize(size, options: options, contentMode: .aspectFit, completeBlock: completeBlock)
 	}
-	
+
 	public func fetchImageWithSize(_ size: CGSize, options: PHImageRequestOptions?, contentMode: PHImageContentMode, completeBlock: @escaping (_ image: UIImage?, _ info: [AnyHashable: Any]?) -> Void) {
 		if let _ = self.originalAsset {
 			getImageManager().fetchImageForAsset(self, size: size, options: options, contentMode: contentMode, completeBlock: completeBlock)
@@ -78,11 +78,11 @@ open class DKAsset: NSObject {
 			completeBlock(self.image, nil)
 		}
 	}
-	
+
 	public func fetchFullScreenImageWithCompleteBlock(_ completeBlock: @escaping (_ image: UIImage?, _ info: [AnyHashable: Any]?) -> Void) {
 		self.fetchFullScreenImage(false, completeBlock: completeBlock)
 	}
-	
+
 	/**
      Fetch an image with the current screen size.
      
@@ -94,7 +94,7 @@ open class DKAsset: NSObject {
 			completeBlock(image, info)
 		} else {
 			let screenSize = UIScreen.main.bounds.size
-			
+
 			let options = PHImageRequestOptions()
 			options.deliveryMode = .highQualityFormat
 			options.resizeMode = .exact
@@ -102,17 +102,17 @@ open class DKAsset: NSObject {
 
 			getImageManager().fetchImageForAsset(self, size: screenSize.toPixel(), options: options, contentMode: .aspectFit) { [weak self] image, info in
 				guard let strongSelf = self else { return }
-				
+
 				strongSelf.fullScreenImage = (image, info)
 				completeBlock(image, info)
 			}
 		}
 	}
-	
+
 	public func fetchOriginalImageWithCompleteBlock(_ completeBlock: @escaping (_ image: UIImage?, _ info: [AnyHashable: Any]?) -> Void) {
 		self.fetchOriginalImage(false, completeBlock: completeBlock)
 	}
-	
+
 	/**
      Fetch an image with the original size.
      
@@ -123,7 +123,7 @@ open class DKAsset: NSObject {
 		let options = PHImageRequestOptions()
 		options.version = .current
 		options.isSynchronous = sync
-		
+
 		getImageManager().fetchImageDataForAsset(self, options: options, completeBlock: { (data, info) in
             var image: UIImage?
             if let data = data {
@@ -132,7 +132,7 @@ open class DKAsset: NSObject {
 			completeBlock(image, info)
 		})
 	}
-    
+
     /**
      Fetch an image data with the original size.
      
@@ -143,26 +143,26 @@ open class DKAsset: NSObject {
         let options = PHImageRequestOptions()
         options.version = .current
         options.isSynchronous = sync
-        
+
         getImageManager().fetchImageDataForAsset(self, options: options, completeBlock: { (data, info) in
             completeBlock(data, info)
         })
     }
-	
+
     /**
      Fetch an AVAsset with a completeBlock.
 	*/
 	public func fetchAVAssetWithCompleteBlock(_ completeBlock: @escaping (_ AVAsset: AVAsset?, _ info: [AnyHashable: Any]?) -> Void) {
 		self.fetchAVAsset(nil, completeBlock: completeBlock)
 	}
-	
+
     /**
      Fetch an AVAsset with a completeBlock and PHVideoRequestOptions.
      */
 	public func fetchAVAsset(_ options: PHVideoRequestOptions?, completeBlock: @escaping (_ AVAsset: AVAsset?, _ info: [AnyHashable: Any]?) -> Void) {
 		getImageManager().fetchAVAsset(self, options: options, completeBlock: completeBlock)
 	}
-	
+
     /**
      Sync fetch an AVAsset with a completeBlock and PHVideoRequestOptions.
      */
@@ -178,11 +178,11 @@ open class DKAsset: NSObject {
 			self.fetchAVAsset(options, completeBlock: completeBlock)
 		}
 	}
-	
+
 }
 
 public extension DKAsset {
-	
+
 	struct DKAssetWriter {
 		static let writeQueue: OperationQueue = {
 			let queue = OperationQueue()
@@ -191,15 +191,14 @@ public extension DKAsset {
 			return queue
 		}()
 	}
-	
-	
+
     /**
      Writes the image in the receiver to the file specified by a given path.
      */
 	public func writeImageToFile(_ path: String, completeBlock: @escaping (_ success: Bool) -> Void) {
 		let options = PHImageRequestOptions()
 		options.version = .current
-		
+
 		getImageManager().fetchImageDataForAsset(self, options: options, completeBlock: { (data, _) in
 			DKAssetWriter.writeQueue.addOperation({
 				if let imageData = data {
@@ -211,7 +210,7 @@ public extension DKAsset {
 			})
 		})
 	}
-	
+
     /**
      Writes the AV in the receiver to the file specified by a given path.
      
@@ -237,7 +236,7 @@ public extension DKAsset {
 }
 
 public extension AVAsset {
-	
+
 	public func calculateFileSize() -> Float {
 		if let URLAsset = self as? AVURLAsset {
 			var size: AnyObject?
@@ -261,5 +260,5 @@ public extension AVAsset {
 			return 0
 		}
 	}
-    
+
 }

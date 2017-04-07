@@ -25,7 +25,7 @@ class ArticlesTableViewCell: UITableViewCell {
 
         self.imageBackgroundView.layer.masksToBounds = false
         self.imageBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        self.imageBackgroundView.layer.shadowOpacity = 0.2
+        self.imageBackgroundView.layer.shadowOpacity = 0.5
         self.imageBackgroundView.layer.shadowRadius = 5
         self.imageBackgroundView.layer.cornerRadius = 8
 

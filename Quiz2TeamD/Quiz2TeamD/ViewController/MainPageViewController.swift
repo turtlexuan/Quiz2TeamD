@@ -15,7 +15,7 @@ class MainPageViewController: UIViewController {
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
 
-    var article: [Article] = [Article(title: "Hello", content: "World", image: #imageLiteral(resourceName: "Enlight14.jpg"))]
+    var article: [Article] = [Article(title: "Hello", content: "World", image: #imageLiteral(resourceName: "icon_photo"))]
     var fetchResultController: NSFetchedResultsController<ArticleMO>!
 
     override func viewDidLoad() {

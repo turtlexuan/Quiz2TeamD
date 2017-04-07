@@ -23,6 +23,7 @@ class DetailViewController: UIViewController {
     var component: [Component] = [.image, .title, .content]
     var image: UIImage = #imageLiteral(resourceName: "icon_photo")
     var height: CGFloat = 56
+    var isImageSelected = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +68,7 @@ class DetailViewController: UIViewController {
                 asset?.fetchOriginalImage(true, completeBlock: { (imageData, _) in
                     guard let image = imageData else { return }
                     self.image = image
+                    self.isImageSelected = true
                     self.tableView.reloadData()
                 })
             }
@@ -85,6 +87,7 @@ class DetailViewController: UIViewController {
                 asset?.fetchOriginalImage(true, completeBlock: { (imageData, _) in
                     guard let image = imageData else { return }
                     self.image = image
+                    self.isImageSelected = true
                     self.tableView.reloadData()
                 })
             }
@@ -121,6 +124,19 @@ extension DetailViewController: UITableViewDataSource {
             cell.articleImageView.image = self.image
             cell.articleImageView.contentMode = .scaleAspectFill
             cell.articleImageView.clipsToBounds = true
+            
+            if self.isImageSelected == true {
+                let leading = NSLayoutConstraint(item: cell.articleImageView, attribute: .leading, relatedBy: .equal, toItem: cell.articleImageView.superview, attribute: .leading, multiplier: 1, constant: 0)
+                let trailing = NSLayoutConstraint(item: cell.articleImageView, attribute: .trailing, relatedBy: .equal, toItem: cell.articleImageView.superview, attribute: .trailing, multiplier: 1, constant: 0)
+                let top = NSLayoutConstraint(item: cell.articleImageView, attribute: .top, relatedBy: .equal, toItem: cell.articleImageView.superview, attribute: .top, multiplier: 1, constant: 0)
+                let bottom = NSLayoutConstraint(item: cell.articleImageView, attribute: .bottom, relatedBy: .equal, toItem: cell.articleImageView.superview, attribute: .bottom, multiplier: 1, constant: 0)
+                
+                leading.isActive = true
+                trailing.isActive = true
+                top.isActive = true
+                bottom.isActive = true
+            }
+            
 
             return cell
 

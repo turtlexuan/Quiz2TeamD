@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		06A5B6651E976A9000FA7E14 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A5B6641E976A9000FA7E14 /* Article.swift */; };
 		06A5B6671E976AAB00FA7E14 /* ArticleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A5B6661E976AAB00FA7E14 /* ArticleManager.swift */; };
-		2083AB6F1E97252900AB0B5A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2083AB6E1E97252900AB0B5A /* AppDelegate.swift */; };
-		2083AB711E97252900AB0B5A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2083AB701E97252900AB0B5A /* ViewController.swift */; };
+		2083AB711E97252900AB0B5A /* (null) in Sources */ = {isa = PBXBuildFile; };
 		2083AB741E97252900AB0B5A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2083AB721E97252900AB0B5A /* Main.storyboard */; };
 		2083AB771E97252A00AB0B5A /* Quiz2TeamD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2083AB751E97252900AB0B5A /* Quiz2TeamD.xcdatamodeld */; };
 		2083AB791E97252A00AB0B5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2083AB781E97252A00AB0B5A /* Assets.xcassets */; };
@@ -46,7 +44,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		06A5B6641E976A9000FA7E14 /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		06A5B6661E976AAB00FA7E14 /* ArticleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleManager.swift; sourceTree = "<group>"; };
 		2083AB6B1E97252900AB0B5A /* Quiz2TeamD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quiz2TeamD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2083AB731E97252900AB0B5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -101,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				06A5B6661E976AAB00FA7E14 /* ArticleManager.swift */,
-				06A5B6641E976A9000FA7E14 /* Article.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -133,8 +129,6 @@
 				2083AB861E972EA700AB0B5A /* ViewController */,
 				2083AB921E97373400AB0B5A /* Constant */,
 				06A5B6631E976A1800FA7E14 /* Model */,
-				2083AB6E1E97252900AB0B5A /* AppDelegate.swift */,
-				2083AB701E97252900AB0B5A /* ViewController.swift */,
 				2083AB721E97252900AB0B5A /* Main.storyboard */,
 				2083AB781E97252A00AB0B5A /* Assets.xcassets */,
 				2083AB7A1E97252A00AB0B5A /* LaunchScreen.storyboard */,
@@ -386,8 +380,7 @@
 				2083ABC11E975EC300AB0B5A /* TextTableViewCell.swift in Sources */,
 				2083AB8A1E972ED700AB0B5A /* AppDelegate.swift in Sources */,
 				2083AB941E97374500AB0B5A /* Color.swift in Sources */,
-				06A5B6651E976A9000FA7E14 /* Article.swift in Sources */,
-				2083AB711E97252900AB0B5A /* ViewController.swift in Sources */,
+				2083AB711E97252900AB0B5A /* (null) in Sources */,
 				06A5B6671E976AAB00FA7E14 /* ArticleManager.swift in Sources */,
 				2083AB771E97252A00AB0B5A /* Quiz2TeamD.xcdatamodeld in Sources */,
 				2083ABBD1E975DBF00AB0B5A /* TitleTableViewCell.swift in Sources */,

@@ -66,8 +66,7 @@ public extension DynamicColor {
 
     if scanner.scanHexInt32(&color) {
       self.init(hex: color)
-    }
-    else {
+    } else {
       self.init(hex: 0x000000)
     }
   }

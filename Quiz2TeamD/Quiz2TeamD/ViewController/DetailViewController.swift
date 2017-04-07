@@ -24,10 +24,14 @@ class DetailViewController: UIViewController {
     var image: UIImage = #imageLiteral(resourceName: "icon_photo")
     var height: CGFloat = 56
     var isImageSelected = false
+    var content = ""
+    var articleTitle = ""
+    var article = Article(title: "", content: "", image: #imageLiteral(resourceName: "icon_photo"))
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.statusBarStyle = .lightContent
+
+        self.setUpBackButton()
 
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -44,64 +48,90 @@ class DetailViewController: UIViewController {
         self.tableView.estimatedRowHeight = 150
     }
 
-    @IBAction func saveAction(_ sender: Any) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        UIApplication.shared.statusBarStyle = .lightContent
     }
-    
+
+    func setUpBackButton() {
+
+        let backButton = UIButton(frame: CGRect(x: 20, y: 30, width: 44, height: 44))
+        backButton.setImage(#imageLiteral(resourceName: "button_close"), for: .normal)
+        backButton.addTarget(self, action: #selector(backAction(_:)), for: .touchUpInside)
+        self.view.addSubview(backButton)
+    }
+
+    func backAction(_ sender: UIButton) {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+
+    @IBAction func saveAction(_ sender: Any) {
+
+        ArticleManager.shared.save(article: self.article)
+
+    }
+
     func showImagePickerAlertSheet() {
         let alertController = UIAlertController(title: "Choose Image From?", message: nil, preferredStyle: .actionSheet)
-        
+
         let libraryAction = UIAlertAction(title: "Choose from photo library", style: .default) { (_) in
-            
-//            let pickerController = UIImagePickerController()
-//            pickerController.allowsEditing = false
-//            pickerController.sourceType = .photoLibrary
-//            
-//            self.present(pickerController, animated: true, completion: nil)
-            
+
             let pickerController = DKImagePickerController()
             pickerController.assetType = .allPhotos
             pickerController.maxSelectableCount = 1
             pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
                 print("didSelectAssets")
-                
+
                 let asset = assets.first
                 asset?.fetchOriginalImage(true, completeBlock: { (imageData, _) in
                     guard let image = imageData else { return }
                     self.image = image
+                    self.article.image = image
                     self.isImageSelected = true
                     self.tableView.reloadData()
                 })
             }
             self.present(pickerController, animated: true, completion: nil)
         }
-        
+
         let cameraAction = UIAlertAction(title: "Take a photo", style: .default) { (_) in
-            
+
             let pickerController = DKImagePickerController()
             pickerController.sourceType = .camera
-            
+
             pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
                 print("didSelectAssets")
-                
+
                 let asset = assets.first
                 asset?.fetchOriginalImage(true, completeBlock: { (imageData, _) in
                     guard let image = imageData else { return }
                     self.image = image
+                    self.article.image = image
                     self.isImageSelected = true
                     self.tableView.reloadData()
                 })
             }
             self.present(pickerController, animated: true, completion: nil)
         }
-        
+
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
+
         alertController.addAction(libraryAction)
         alertController.addAction(cameraAction)
         alertController.addAction(cancelAction)
-        
+
         self.present(alertController, animated: true, completion: nil)
     }
+
+    func showAlert() {
+        let alertController = UIAlertController(title: "Save Success!", message: nil, preferredStyle: .alert)
+        let doneAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(doneAction)
+
+        self.present(alertController, animated: true, completion: nil)
+    }
+
 }
 
 extension DetailViewController: UITableViewDataSource {
@@ -118,25 +148,21 @@ extension DetailViewController: UITableViewDataSource {
             let cell = self.tableView.dequeueReusableCell(withIdentifier: "DetailImageTableViewCell", for: indexPath) as! DetailImageTableViewCell
 
             cell.selectionStyle = .none
-            
-//            let tintedImage = self.image.withRenderingMode(.alwaysTemplate)
-//            cell.articleImageView.image = tintedImage
-            cell.articleImageView.image = self.image
+            cell.articleImageView.image = self.article.image
             cell.articleImageView.contentMode = .scaleAspectFill
             cell.articleImageView.clipsToBounds = true
-            
+
             if self.isImageSelected == true {
                 let leading = NSLayoutConstraint(item: cell.articleImageView, attribute: .leading, relatedBy: .equal, toItem: cell.articleImageView.superview, attribute: .leading, multiplier: 1, constant: 0)
                 let trailing = NSLayoutConstraint(item: cell.articleImageView, attribute: .trailing, relatedBy: .equal, toItem: cell.articleImageView.superview, attribute: .trailing, multiplier: 1, constant: 0)
                 let top = NSLayoutConstraint(item: cell.articleImageView, attribute: .top, relatedBy: .equal, toItem: cell.articleImageView.superview, attribute: .top, multiplier: 1, constant: 0)
                 let bottom = NSLayoutConstraint(item: cell.articleImageView, attribute: .bottom, relatedBy: .equal, toItem: cell.articleImageView.superview, attribute: .bottom, multiplier: 1, constant: 0)
-                
+
                 leading.isActive = true
                 trailing.isActive = true
                 top.isActive = true
                 bottom.isActive = true
             }
-            
 
             return cell
 
@@ -145,16 +171,19 @@ extension DetailViewController: UITableViewDataSource {
             let cell = self.tableView.dequeueReusableCell(withIdentifier: "TitleTableViewCell", for: indexPath) as! TitleTableViewCell
 
             cell.selectionStyle = .none
-            
+            cell.titleTextField.delegate = self
+            cell.titleTextField.text = self.article.title
+
             return cell
 
         case .content:
 
             let cell = self.tableView.dequeueReusableCell(withIdentifier: "TextTableViewCell", for: indexPath) as! TextTableViewCell
-            
+
             cell.selectionStyle = .none
-            
+
             cell.textField.delegate = self
+            cell.textField.text = self.article.content
 
             return cell
         }
@@ -178,9 +207,9 @@ extension DetailViewController: UITableViewDelegate {
             return UITableViewAutomaticDimension
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         if self.component[indexPath.row] == .image {
             self.showImagePickerAlertSheet()
         }
@@ -189,7 +218,7 @@ extension DetailViewController: UITableViewDelegate {
 }
 
 extension DetailViewController: UITextViewDelegate {
-    
+
     func textViewDidChange(_ textView: UITextView) {
         let currentOffset = self.tableView.contentOffset
         UIView.setAnimationsEnabled(false)
@@ -198,20 +227,19 @@ extension DetailViewController: UITextViewDelegate {
         UIView.setAnimationsEnabled(true)
         self.tableView.setContentOffset(currentOffset, animated: false)
     }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text != nil {
+            self.article.content = textView.text
+        }
+    }
 }
 
-//extension DetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-//    
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-//        
-//        if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            self.image = selectedImage
-//            self.tableView.reloadData()
-//        }
-//        
-//        self.dismiss(animated: true, completion: nil)
-//    }
-//    
-//}
+extension DetailViewController: UITextFieldDelegate {
 
-
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField.text {
+            self.article.title = text
+        }
+    }
+}

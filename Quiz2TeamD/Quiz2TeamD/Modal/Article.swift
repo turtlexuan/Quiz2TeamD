@@ -11,11 +11,11 @@ import UIKit
 
 class Article {
 
-    let title: String!
-    let content: String!
-    let image: UIImage!
+    var title: String!
+    var content: String!
+    var image: UIImage!
 
-    init(title: String, content: String, image: UIImage) {
+    init(title: String, content: String, image: UIImage? = nil) {
 
         self.title = title
         self.content = content

@@ -27,19 +27,32 @@ class MainPageViewController: UIViewController {
         self.plusButton.tintColor = .red
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+
+        ArticleManager.shared.fetch { (articles, error) in
+            if error != nil {
+                print(error)
+            }
+
+            self.article = articles!
+            self.tableView.reloadData()
+        }
     }
 
     @IBAction func newArticleAction(_ sender: Any) {
+        // swiftlint:disable force_cast
+        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        detailVC.isImageSelected = false
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 
 extension MainPageViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return article.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,6 +74,11 @@ extension MainPageViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //
+        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        detailVC.isImageSelected = true
+        detailVC.article = self.article[indexPath.row]
+        self.navigationController?.pushViewController(detailVC, animated: true)
+
     }
 
 }

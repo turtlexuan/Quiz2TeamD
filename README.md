@@ -1,5 +1,7 @@
 # SimpleJournal
 
+![](https://cloud.githubusercontent.com/assets/12083776/25885594/e7a24ee6-358b-11e7-9128-fb1cd1a2c5a2.png)
+
 Simple Journal 是一款建議的日記 App , 提供使用者新增/修改文章，上傳/更改單張照片等功能。
 此專案為 AppWorks School iOS Class #3 的期中測驗，由我以及另一位同學 Jay 共同完成。
 我主要負責 UI 介面的實作、串接 Core Data 後的程式修改及版本控制。 Jay 則是負責 Core Data 資料處理的實作。
